@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ListView placeListView;
-    ArrayList<String> placeList;
+    static ArrayList<String> placeList = new ArrayList<String>();
     Intent intent;
 
     @Override
@@ -26,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
         placeListView = (ListView) findViewById(R.id.placeListView);
 
-        placeList = new ArrayList<String>();
+        if (placeList.size() == 0) {
 
-        placeList.add("Add a new place...");
+            placeList.add("Add a new place...");
+
+        }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, placeList);
 
