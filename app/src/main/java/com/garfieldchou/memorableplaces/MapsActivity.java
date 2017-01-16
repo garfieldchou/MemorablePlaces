@@ -34,6 +34,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     LocationListener locationListener;
 
+    Intent intent;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -76,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent = new Intent(getApplicationContext(), MainActivity.class);
 
         final ArrayList<String> savedPlaces = new ArrayList<>();
 
@@ -147,6 +149,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(intent);
 
     }
 }

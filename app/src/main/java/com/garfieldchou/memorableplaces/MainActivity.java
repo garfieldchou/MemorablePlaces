@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
+            Intent intent = getIntent();
             placeList.addAll(intent.getStringArrayListExtra("savedPlaces"));
 
         } catch (Exception e){
