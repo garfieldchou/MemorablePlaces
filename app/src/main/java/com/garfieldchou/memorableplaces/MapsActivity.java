@@ -32,15 +32,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     LocationListener locationListener;
 
-    public void updateMarker(Location location) {
-
-        LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(userLatLng).title("I'm here!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 15));
-
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -91,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Log.i("Location changed", location.toString());
 
-                updateMarker(location);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 17));
 
             }
 
@@ -128,10 +119,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // get the last known location
                 Location userLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                updateMarker(userLocation);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 17));
 
             }
 
         }
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+                Log.i("LatLng long pressed", latLng.toString());
+
+                mMap.clear();
+
+                mMap.addMarker(new MarkerOptions().position(latLng).title("I'm here!"));
+
+            }
+        });
+
     }
 }
