@@ -3,6 +3,7 @@ package com.garfieldchou.memorableplaces;
 import android.*;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.security.Permission;
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -73,6 +75,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        final ArrayList<String> savedPlaces = new ArrayList<>();
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -130,6 +136,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapLongClick(LatLng latLng) {
 
                 Log.i("LatLng long pressed", latLng.toString());
+
+                savedPlaces.add(latLng.toString());
+
+                intent.putStringArrayListExtra("savedPlaces", savedPlaces);
 
                 mMap.clear();
 

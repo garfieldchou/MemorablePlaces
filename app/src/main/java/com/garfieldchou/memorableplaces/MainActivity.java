@@ -15,11 +15,14 @@ public class MainActivity extends AppCompatActivity {
 
     ListView placeListView;
     ArrayList<String> placeList;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.i("Info", "onCreate() again");
 
         placeListView = (ListView) findViewById(R.id.placeListView);
 
@@ -31,15 +34,35 @@ public class MainActivity extends AppCompatActivity {
 
         placeListView.setAdapter(arrayAdapter);
 
+        intent = new Intent(getApplicationContext(), MapsActivity.class);
+
         placeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
                 startActivity(intent);
                 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.i("back", "back key pressed?");
+
+        try {
+
+            placeList.addAll(intent.getStringArrayListExtra("savedPlaces"));
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+
+            Log.i("info", "Failed to get savedPlaces");
+
+        }
+
     }
 }
