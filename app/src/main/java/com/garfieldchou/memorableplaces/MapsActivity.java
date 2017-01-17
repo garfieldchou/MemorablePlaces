@@ -42,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     ArrayList<String> savedPlaces = new ArrayList<>();
 
+    static ArrayList<LatLng> LatLngSavedPlaces = new ArrayList<LatLng>();
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
