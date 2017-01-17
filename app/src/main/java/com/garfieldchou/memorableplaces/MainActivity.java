@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     ListView placeListView;
     static ArrayList<String> placeList = new ArrayList<String>();
-    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         placeListView.setAdapter(arrayAdapter);
 
-        intent = new Intent(getApplicationContext(), MapsActivity.class);
-
         placeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+
+                intent.putExtra("Item Click", i);
 
                 startActivity(intent);
                 

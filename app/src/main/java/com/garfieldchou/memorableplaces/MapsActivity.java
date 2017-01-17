@@ -40,8 +40,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     LocationListener locationListener;
 
-    Intent intent;
-
     ArrayList<String> savedPlaces = new ArrayList<>();
 
     @Override
@@ -85,8 +83,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        intent = new Intent(getApplicationContext(), MainActivity.class);
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -132,6 +128,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // get the last known location
                 Location userLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                Intent intent = getIntent();
+
+                int locationClicked = intent.getIntExtra("Item Click", 0);
+
+                Log.i("Item clicked: ", String.valueOf(locationClicked));
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 17));
 
@@ -195,6 +197,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
         intent.putStringArrayListExtra("savedPlaces", savedPlaces);
 
