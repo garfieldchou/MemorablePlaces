@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,6 +41,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationListener locationListener;
 
     Intent intent;
+
+    ArrayList<String> savedPlaces = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -84,8 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         intent = new Intent(getApplicationContext(), MainActivity.class);
-
-        final ArrayList<String> savedPlaces = new ArrayList<>();
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -180,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 savedPlaces.add(savedPlaceName);
 
-                intent.putStringArrayListExtra("savedPlaces", savedPlaces);
+                Toast.makeText(MapsActivity.this, "Location saved!", Toast.LENGTH_SHORT).show();
 
                 mMap.clear();
 
@@ -194,6 +195,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        intent.putStringArrayListExtra("savedPlaces", savedPlaces);
 
         startActivity(intent);
 
