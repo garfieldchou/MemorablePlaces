@@ -23,7 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     private GoogleMap mMap;
 
@@ -55,7 +55,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.clear();
 
-        mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
+        if (title != "Your location") {
+
+            mMap.addMarker(new MarkerOptions().position(userLocation).title(title));
+
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10));
 
@@ -84,6 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnMapLongClickListener(this);
 
         Intent intent = getIntent();
 
@@ -140,5 +146,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        
     }
 }
