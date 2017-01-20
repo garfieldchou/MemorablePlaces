@@ -208,6 +208,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MainActivity.places.add(address);
         MainActivity.locations.add(latLng);
 
+        try {
+
+            MainActivity.placesSharedPreferences.edit().putString("places", ObjectSerializer.serialize(MainActivity.places)).apply();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            MainActivity.locationsSharedPreferences.edit().putString("locations", ObjectSerializer.serialize(MainActivity.locations)).apply();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         MainActivity.arrayAdapter.notifyDataSetChanged();
 
         Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
