@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -215,8 +216,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try {
 
+            ArrayList<String> latitudes = new ArrayList<>();
+
+            ArrayList<String> longitudes = new ArrayList<>();
+
+            for (LatLng coordinates : MainActivity.locations) {
+
+                latitudes.add();
+
+
+            }
+
             sharedPreferences.edit().putString("places", ObjectSerializer.serialize(MainActivity.places)).apply();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
